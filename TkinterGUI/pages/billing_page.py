@@ -7,6 +7,7 @@ from tkinter import ttk
 
 from utils.file_handler import load_json
 from TkinterGUI.pages.base_page import BasePage
+from TkinterGUI.widgets.customer_combobox import CustomerCombobox
 
 
 class BillingPage(BasePage):
@@ -26,7 +27,8 @@ class BillingPage(BasePage):
         self.month_var = tk.StringVar()
         for idx, label in enumerate(("Customer ID", "Year", "Month")):
             ttk.Label(single, text=label).grid(row=0, column=idx, sticky="w")
-        ttk.Entry(single, textvariable=self.customer_id_var).grid(row=1, column=0, sticky="ew", padx=(0, 8), pady=(4, 10))
+        self.customer_combo = CustomerCombobox(single, self.app, textvariable=self.customer_id_var)
+        self.customer_combo.grid(row=1, column=0, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Entry(single, textvariable=self.year_var).grid(row=1, column=1, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Entry(single, textvariable=self.month_var).grid(row=1, column=2, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Button(single, text="Generate Bill", command=self.generate_single_bill).grid(row=1, column=3, sticky="ew")
@@ -88,6 +90,7 @@ class BillingPage(BasePage):
         self.add_status_bar()
 
     def refresh(self):
+        self.customer_combo.refresh_values()
         bills = list(self.app.billing_ctrl.get_all_bills().values())
         self.populate_bills(bills)
         self.set_status(f"Loaded {len(bills)} bill(s).")
@@ -113,7 +116,10 @@ class BillingPage(BasePage):
         period = self.parse_period(self.year_var, self.month_var)
         if not period:
             return
-        customer_id = self.customer_id_var.get().strip().upper()
+        customer_id = self.customer_combo.get_customer_id()
+        if not customer_id:
+            self.error("Customer not found", "Choose or type a valid customer ID.")
+            return
         success, message, bill = self.app.billing_ctrl.generate_monthly_bill(customer_id, period[0], period[1])
         if success:
             self.refresh()
@@ -154,7 +160,7 @@ class BillingPage(BasePage):
         self.set_status(f"Showing {len(unpaid)} unpaid bill(s).")
 
     def show_customer_bills(self):
-        customer_id = self.customer_id_var.get().strip().upper()
+        customer_id = self.customer_combo.get_customer_id()
         if not customer_id:
             self.warn("Missing customer", "Enter a customer ID in the single-bill area first.")
             return

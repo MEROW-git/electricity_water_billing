@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TkinterGUI.pages.base_page import BasePage
+from TkinterGUI.widgets.customer_combobox import CustomerCombobox
 
 
 class ReportsPage(BasePage):
@@ -26,7 +27,8 @@ class ReportsPage(BasePage):
         ttk.Label(controls, text="Customer ID").grid(row=0, column=2, sticky="w")
         ttk.Entry(controls, textvariable=self.year_var).grid(row=1, column=0, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Entry(controls, textvariable=self.month_var).grid(row=1, column=1, sticky="ew", padx=(0, 8), pady=(4, 10))
-        ttk.Entry(controls, textvariable=self.customer_id_var).grid(row=1, column=2, sticky="ew", padx=(0, 8), pady=(4, 10))
+        self.customer_combo = CustomerCombobox(controls, self.app, textvariable=self.customer_id_var)
+        self.customer_combo.grid(row=1, column=2, sticky="ew", padx=(0, 8), pady=(4, 10))
 
         ttk.Button(controls, text="Monthly Report", command=self.show_monthly).grid(row=1, column=3, sticky="ew", padx=(0, 8))
         ttk.Button(controls, text="Yearly Report", command=self.show_yearly).grid(row=1, column=4, sticky="ew", padx=(0, 8))
@@ -39,6 +41,9 @@ class ReportsPage(BasePage):
         self.output = tk.Text(self, wrap="word")
         self.output.pack(fill="both", expand=True)
         self.add_status_bar()
+
+    def refresh(self):
+        self.customer_combo.refresh_values()
 
     def _parse_year(self):
         try:
@@ -79,7 +84,7 @@ class ReportsPage(BasePage):
         self.show_text(self.app.reports.unpaid_bills_report(), "Generated unpaid bills report.")
 
     def show_customer_statement(self):
-        customer_id = self.customer_id_var.get().strip().upper()
+        customer_id = self.customer_combo.get_customer_id()
         if not customer_id:
             self.warn("Missing customer", "Please enter a customer ID.")
             return

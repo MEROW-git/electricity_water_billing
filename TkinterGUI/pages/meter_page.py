@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from TkinterGUI.pages.base_page import BasePage
+from TkinterGUI.widgets.customer_combobox import CustomerCombobox
 
 
 class MeterPage(BasePage):
@@ -27,7 +28,8 @@ class MeterPage(BasePage):
         ttk.Label(assign_box, text="Customer ID").grid(row=0, column=0, sticky="w")
         ttk.Label(assign_box, text="Initial Electricity").grid(row=0, column=1, sticky="w")
         ttk.Label(assign_box, text="Initial Water").grid(row=0, column=2, sticky="w")
-        ttk.Entry(assign_box, textvariable=self.customer_id_var).grid(row=1, column=0, sticky="ew", padx=(0, 8), pady=(4, 10))
+        self.assign_customer_combo = CustomerCombobox(assign_box, self.app, textvariable=self.customer_id_var)
+        self.assign_customer_combo.grid(row=1, column=0, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Entry(assign_box, textvariable=self.elec_var).grid(row=1, column=1, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Entry(assign_box, textvariable=self.water_var).grid(row=1, column=2, sticky="ew", padx=(0, 8), pady=(4, 10))
         ttk.Button(assign_box, text="Assign", command=self.assign_meters).grid(row=1, column=3, sticky="ew")
@@ -39,7 +41,8 @@ class MeterPage(BasePage):
         lookup_box.pack(side="right", fill="both", expand=True)
 
         self.lookup_customer_var = tk.StringVar()
-        ttk.Entry(lookup_box, textvariable=self.lookup_customer_var).pack(fill="x", pady=(0, 10))
+        self.lookup_customer_combo = CustomerCombobox(lookup_box, self.app, textvariable=self.lookup_customer_var)
+        self.lookup_customer_combo.pack(fill="x", pady=(0, 10))
         ttk.Button(lookup_box, text="Show Customer Meters", command=self.show_customer_meters).pack(fill="x")
 
         self.customer_meter_text = tk.Text(lookup_box, height=7, wrap="word")
@@ -69,6 +72,8 @@ class MeterPage(BasePage):
         self.add_status_bar()
 
     def refresh(self):
+        self.assign_customer_combo.refresh_values()
+        self.lookup_customer_combo.refresh_values()
         meters = self.app.meter_ctrl.get_all_meters().values()
         for row in self.tree.get_children():
             self.tree.delete(row)
@@ -96,7 +101,7 @@ class MeterPage(BasePage):
             self.error("Invalid value", "Initial readings must be numeric.")
             return
 
-        customer_id = self.customer_id_var.get().strip().upper()
+        customer_id = self.assign_customer_combo.get_customer_id()
         success, message, elec_id, water_id = self.app.meter_ctrl.assign_meters(customer_id, elec, water)
         if success:
             self.refresh()
@@ -105,7 +110,10 @@ class MeterPage(BasePage):
             self.error("Unable to assign meters", message)
 
     def show_customer_meters(self):
-        customer_id = self.lookup_customer_var.get().strip().upper()
+        customer_id = self.lookup_customer_combo.get_customer_id()
+        if not customer_id:
+            self.warn("Customer not found", "Choose or type a valid customer ID.")
+            return
         meters = self.app.meter_ctrl.get_customer_meters(customer_id)
         lines = [f"Customer: {customer_id}"]
         for meter_type in ("electricity", "water"):

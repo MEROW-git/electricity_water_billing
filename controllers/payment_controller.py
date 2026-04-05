@@ -39,6 +39,14 @@ class PaymentController:
         
         if bill.status == "paid":
             return (False, "Bill is already fully paid", 0)
+
+        latest_bill = self.billing_controller.get_latest_payable_bill_for_customer(bill.customer_id)
+        if latest_bill and latest_bill.bill_id != bill.bill_id:
+            return (
+                False,
+                f"Only the newest unpaid bill can be paid. Latest bill is {latest_bill.bill_id}",
+                0,
+            )
         
         # Process payment
         success, message, remaining = bill.record_payment(amount)

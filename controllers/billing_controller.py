@@ -124,6 +124,24 @@ class BillingController:
                     unpaid.append(bill)
         
         return unpaid
+
+    def get_latest_payable_bills(self):
+        """Return only the newest unpaid or partial bill for each customer."""
+        latest_by_customer = {}
+
+        for bill in self.get_unpaid_bills():
+            current = latest_by_customer.get(bill.customer_id)
+            if current is None or (bill.year, bill.month, bill.bill_id) > (current.year, current.month, current.bill_id):
+                latest_by_customer[bill.customer_id] = bill
+
+        return list(latest_by_customer.values())
+
+    def get_latest_payable_bill_for_customer(self, customer_id):
+        """Return the newest unpaid or partial bill for one customer."""
+        bills = [bill for bill in self.get_unpaid_bills(customer_id) if bill.customer_id == customer_id]
+        if not bills:
+            return None
+        return max(bills, key=lambda bill: (bill.year, bill.month, bill.bill_id))
     
     def display_bill(self, bill):
         """Format single bill for display"""
