@@ -145,6 +145,53 @@ class AuthManager:
         if save_json("users.json", users):
             return (True, f"User '{username}' created successfully")
         return (False, "Failed to save user data")
+
+    def update_user(self, current_username, new_username, role, name, email="", phone_number="", mfa_enabled=False):
+        """
+        Update an existing user (Admin only)
+        Returns: (success, message)
+        """
+        if not self.is_admin():
+            return (False, "Permission denied: Admin only")
+
+        users = load_json("users.json", {})
+
+        if current_username not in users:
+            return (False, f"User '{current_username}' not found")
+
+        new_username = (new_username or "").strip()
+        name = (name or "").strip()
+        role = (role or "").strip()
+
+        if not new_username:
+            return (False, "Username is required")
+        if not name:
+            return (False, "Full name is required")
+        if role not in ("admin", "staff"):
+            return (False, "Role must be 'admin' or 'staff'")
+        if new_username != current_username and new_username in users:
+            return (False, f"User '{new_username}' already exists")
+
+        user_data = users[current_username]
+        updated_data = {
+            "password": user_data.get("password", ""),
+            "role": role,
+            "name": name,
+            "email": email,
+            "phone_number": phone_number,
+            "mfa_enabled": bool(mfa_enabled),
+        }
+
+        if new_username != current_username:
+            del users[current_username]
+        users[new_username] = updated_data
+
+        if save_json("users.json", users):
+            if self.current_user == current_username:
+                self.current_user = new_username
+                self.current_role = role
+            return (True, f"User '{current_username}' updated successfully")
+        return (False, "Failed to save user data")
     
     def is_admin(self):
         """Check if current user is admin"""
