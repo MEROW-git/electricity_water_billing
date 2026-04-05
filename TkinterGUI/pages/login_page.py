@@ -17,7 +17,7 @@ class LoginPage(ttk.Frame):
         card.place(relx=0.5, rely=0.5, anchor="center")
 
         ttk.Label(card, text="Electricity & Water Billing System", style="Header.TLabel").grid(row=0, column=0, columnspan=2, sticky="w")
-        ttk.Label(card, text="Use your real account from data/users.json", style="Muted.TLabel").grid(row=1, column=0, columnspan=2, sticky="w", pady=(0, 20))
+        ttk.Label(card, text="Use your real account from the SQLite database", style="Muted.TLabel").grid(row=1, column=0, columnspan=2, sticky="w", pady=(0, 20))
 
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
