@@ -1,0 +1,114 @@
+{
+  "E-001": {
+    "meter_id": "E-001",
+    "customer_id": "CUST-001",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 150,
+    "last_updated": "2026-03-01 16:51"
+  },
+  "W-001": {
+    "meter_id": "W-001",
+    "customer_id": "CUST-001",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 250,
+    "last_updated": "2026-03-01 16:51"
+  },
+  "E-002": {
+    "meter_id": "E-002",
+    "customer_id": "CUST-002",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "W-002": {
+    "meter_id": "W-002",
+    "customer_id": "CUST-002",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "E-003": {
+    "meter_id": "E-003",
+    "customer_id": "CUST-003",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "W-003": {
+    "meter_id": "W-003",
+    "customer_id": "CUST-003",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "E-004": {
+    "meter_id": "E-004",
+    "customer_id": "CUST-004",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "W-004": {
+    "meter_id": "W-004",
+    "customer_id": "CUST-004",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "E-005": {
+    "meter_id": "E-005",
+    "customer_id": "CUST-005",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "W-005": {
+    "meter_id": "W-005",
+    "customer_id": "CUST-005",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "E-006": {
+    "meter_id": "E-006",
+    "customer_id": "CUST-006",
+    "meter_type": "electricity",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "W-006": {
+    "meter_id": "W-006",
+    "customer_id": "CUST-006",
+    "meter_type": "water",
+    "previous_reading": 2.0,
+    "current_reading": 2.0,
+    "last_updated": "2026-03-01 16:33"
+  },
+  "E-007": {
+    "meter_id": "E-007",
+    "customer_id": "CUST-007",
+    "meter_type": "electricity",
+    "previous_reading": 100,
+    "current_reading": 100,
+    "last_updated": null
+  },
+  "W-007": {
+    "meter_id": "W-007",
+    "customer_id": "CUST-007",
+    "meter_type": "water",
+    "previous_reading": 200,
+    "current_reading": 200,
+    "last_updated": null
+  }
+}

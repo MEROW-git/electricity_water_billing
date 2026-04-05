@@ -1,0 +1,18 @@
+{
+  "admin": {
+    "password": "admin123",
+    "role": "admin",
+    "name": "System Administrator",
+    "email": "",
+    "phone_number": "",
+    "mfa_enabled": true
+  },
+  "REAK": {
+    "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "role": "staff",
+    "name": "MEAS PUTTIVIREAK",
+    "email": "",
+    "phone_number": "",
+    "mfa_enabled": false
+  }
+}

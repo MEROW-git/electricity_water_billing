@@ -1,0 +1,58 @@
+{
+  "CUST-001": {
+    "customer_id": "CUST-001",
+    "name": "Chan Dara",
+    "phone": "012899053",
+    "address": "Phnom Penh, Dey Hoy",
+    "created_date": "2026-01-01",
+    "is_active": true
+  },
+  "CUST-002": {
+    "customer_id": "CUST-002",
+    "name": "Sok Sreyneang",
+    "phone": "0973344556",
+    "address": "Phnom Penh, Toul Kork",
+    "created_date": "2026-01-01",
+    "is_active": true
+  },
+  "CUST-003": {
+    "customer_id": "CUST-003",
+    "name": "Hem Vannak",
+    "phone": "0887788990",
+    "address": "Phnom Penh, Sen Sok",
+    "created_date": "2026-01-01",
+    "is_active": true
+  },
+  "CUST-004": {
+    "customer_id": "CUST-004",
+    "name": "Keo Sopheak",
+    "phone": "070556677",
+    "address": "Phnom Penh, Meanchey",
+    "created_date": "2026-01-01",
+    "is_active": true
+  },
+  "CUST-005": {
+    "customer_id": "CUST-005",
+    "name": "Lim Chhay",
+    "phone": "0967788123",
+    "address": "Phnom Penh, Russey Keo",
+    "created_date": "2026-01-01",
+    "is_active": true
+  },
+  "CUST-006": {
+    "customer_id": "CUST-006",
+    "name": "Batch",
+    "phone": "0123456789",
+    "address": "addr",
+    "created_date": "2026-03-01",
+    "is_active": true
+  },
+  "CUST-007": {
+    "customer_id": "CUST-007",
+    "name": "PDF Test",
+    "phone": "0123456789",
+    "address": "addr",
+    "created_date": "2026-03-01",
+    "is_active": true
+  }
+}
